@@ -1,0 +1,25 @@
+// Galaxy brand tokens. Update here to re-skin the entire app.
+// See BRAND.md for source of truth and instructions.
+
+:root {
+  --galaxy-bg:      #0B1020;
+  --galaxy-surface: #141A2E;
+  --galaxy-primary: #5B8CFF;
+  --galaxy-accent:  #9D7BFF;
+  --galaxy-success: #3FD9A4;
+  --galaxy-warn:    #F5B547;
+  --galaxy-danger:  #FF6B6B;
+  --galaxy-text:    #E6ECFF;
+  --galaxy-muted:   #8892B8;
+  --galaxy-border:  rgba(230, 236, 255, 0.08);
+}
+
+$galaxy-bg:      #0B1020;
+$galaxy-surface: #141A2E;
+$galaxy-primary: #5B8CFF;
+$galaxy-accent:  #9D7BFF;
+$galaxy-success: #3FD9A4;
+$galaxy-warn:    #F5B547;
+$galaxy-danger:  #FF6B6B;
+$galaxy-text:    #E6ECFF;
+$galaxy-muted:   #8892B8;

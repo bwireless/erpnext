@@ -1,0 +1,36 @@
+{
+ "actions": [],
+ "creation": "2026-05-26 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "run",
+  "sequence",
+  "role",
+  "content_text",
+  "tool_name",
+  "tool_input",
+  "tool_output"
+ ],
+ "fields": [
+  {"fieldname": "run", "fieldtype": "Link", "label": "Run", "options": "Galaxy AI Agent Run", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "sequence", "fieldtype": "Int", "label": "#", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "role", "fieldtype": "Select", "label": "Role", "options": "system\nuser\nassistant\ntool_use\ntool_result\nthinking", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "content_text", "fieldtype": "Long Text", "label": "Content"},
+  {"fieldname": "tool_name", "fieldtype": "Data", "label": "Tool Name"},
+  {"fieldname": "tool_input", "fieldtype": "Code", "label": "Tool Input", "options": "JSON"},
+  {"fieldname": "tool_output", "fieldtype": "Code", "label": "Tool Output", "options": "JSON"}
+ ],
+ "links": [],
+ "modified": "2026-05-26 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "AI Agents",
+ "name": "Galaxy AI Agent Message",
+ "owner": "Administrator",
+ "permissions": [
+  {"create": 1, "delete": 1, "read": 1, "report": 1, "role": "System Manager", "share": 1, "write": 1}
+ ],
+ "sort_field": "sequence",
+ "sort_order": "ASC",
+ "states": []
+}

@@ -1,0 +1,12 @@
+Copyright (c) 2026, eKosmos Inc. and contributors
+
+Galaxy is proprietary software of eKosmos Inc. All rights reserved.
+
+This source tree is provided to eKosmos personnel and authorized
+contractors for the purpose of operating the eKosmos PSA platform. It
+may not be redistributed without written permission from eKosmos Inc.
+
+Portions of this work are derived from or interoperate with ERPNext
+(https://github.com/frappe/erpnext), which is licensed under the GNU
+General Public License v3. Those portions remain under their original
+license.

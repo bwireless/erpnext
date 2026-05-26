@@ -1,0 +1,26 @@
+{
+ "actions": [],
+ "creation": "2026-05-26 00:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "relationship_type",
+  "related_ci"
+ ],
+ "fields": [
+  {"fieldname": "relationship_type", "fieldtype": "Select", "label": "Type", "options": "depends_on\nhosts\nconnects_to\nmember_of\nbackup_of", "reqd": 1, "in_list_view": 1},
+  {"fieldname": "related_ci", "fieldtype": "Link", "label": "Related CI", "options": "Galaxy Configuration Item", "reqd": 1, "in_list_view": 1}
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2026-05-26 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "CMDB",
+ "name": "Galaxy CI Relationship",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,15 @@
+@import "./galaxy_variables.scss";
+
+// Web/portal styles. Kept minimal until the client portal pages are
+// implemented; this just sets brand defaults for any portal page that
+// renders before the dedicated portal work lands.
+
+body.galaxy-portal {
+  background: var(--galaxy-bg);
+  color: var(--galaxy-text);
+}
+
+.galaxy-portal .card {
+  background: var(--galaxy-surface);
+  border: 1px solid var(--galaxy-border);
+}

@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "creation": "2026-05-26 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "issingle": 1,
+ "field_order": [
+  "portal_brand_name",
+  "support_email",
+  "section_break_features",
+  "allow_ticket_submission",
+  "allow_kb_access",
+  "allow_invoice_view",
+  "allow_asset_view",
+  "section_break_ai",
+  "enable_ai_intake",
+  "ai_intake_agent"
+ ],
+ "fields": [
+  {"fieldname": "portal_brand_name", "fieldtype": "Data", "label": "Portal Brand Name", "default": "eKosmos Galaxy"},
+  {"fieldname": "support_email", "fieldtype": "Data", "label": "Support Email", "default": "support@ekosmos.com"},
+  {"fieldname": "section_break_features", "fieldtype": "Section Break", "label": "Features"},
+  {"fieldname": "allow_ticket_submission", "fieldtype": "Check", "label": "Allow Ticket Submission", "default": "1"},
+  {"fieldname": "allow_kb_access", "fieldtype": "Check", "label": "Allow Knowledge Base Access", "default": "1"},
+  {"fieldname": "allow_invoice_view", "fieldtype": "Check", "label": "Allow Invoice View", "default": "1"},
+  {"fieldname": "allow_asset_view", "fieldtype": "Check", "label": "Allow Asset View", "default": "0"},
+  {"fieldname": "section_break_ai", "fieldtype": "Section Break", "label": "AI Intake"},
+  {"fieldname": "enable_ai_intake", "fieldtype": "Check", "label": "Enable AI Intake Agent", "default": "0"},
+  {"fieldname": "ai_intake_agent", "fieldtype": "Link", "label": "Intake Agent", "options": "Galaxy AI Agent"}
+ ],
+ "links": [],
+ "modified": "2026-05-26 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Client Portal",
+ "name": "Galaxy Portal Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {"create": 1, "read": 1, "role": "System Manager", "write": 1}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

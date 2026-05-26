@@ -1,0 +1,21 @@
+[project]
+name = "galaxy"
+version = "0.0.1"
+description = "eKosmos Galaxy — AI-first PSA & MSP/MSSP platform built on Frappe/ERPNext"
+authors = [
+    { name = "eKosmos Inc.", email = "engineering@ekosmos.com" },
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = "Proprietary"
+
+dependencies = [
+    # `frappe` and `erpnext` are provided by the bench environment.
+]
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "galaxy"

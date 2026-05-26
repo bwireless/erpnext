@@ -1,0 +1,39 @@
+@import "./galaxy_variables.scss";
+
+// Minimal Desk re-skin. Frappe's Desk reads several CSS custom
+// properties; we override the ones that meaningfully change perceived
+// brand. Heavier component restyling is intentionally deferred.
+
+.navbar,
+header.navbar {
+  background-color: var(--galaxy-surface) !important;
+  border-bottom: 1px solid var(--galaxy-border);
+
+  .navbar-brand,
+  .app-logo {
+    color: var(--galaxy-text);
+  }
+}
+
+.btn-primary,
+.btn-primary:focus {
+  background-color: var(--galaxy-primary);
+  border-color: var(--galaxy-primary);
+}
+
+a,
+a:hover {
+  color: var(--galaxy-primary);
+}
+
+.galaxy-sla-ok      { color: var(--galaxy-success); }
+.galaxy-sla-at-risk { color: var(--galaxy-warn);    }
+.galaxy-sla-breach  { color: var(--galaxy-danger);  }
+
+.galaxy-ai-surface {
+  background: linear-gradient(135deg,
+    rgba(157, 123, 255, 0.10),
+    rgba(91, 140, 255, 0.06));
+  border: 1px solid var(--galaxy-border);
+  border-radius: 12px;
+}
