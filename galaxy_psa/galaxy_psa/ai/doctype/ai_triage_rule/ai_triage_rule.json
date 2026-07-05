@@ -1,0 +1,53 @@
+{
+ "actions": [],
+ "autoname": "field:rule_name",
+ "creation": "2026-07-05 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "rule_name",
+  "enabled",
+  "priority_order",
+  "column_break_1",
+  "channel_filter",
+  "when_ai_category_matches",
+  "when_customer_matches",
+  "actions_section",
+  "assign_to_queue",
+  "assign_to_user",
+  "set_priority",
+  "column_break_2",
+  "auto_reply_template",
+  "invoke_runbook"
+ ],
+ "fields": [
+  {"fieldname": "rule_name", "fieldtype": "Data", "label": "Rule Name", "reqd": 1, "unique": 1, "in_list_view": 1},
+  {"fieldname": "enabled", "fieldtype": "Check", "label": "Enabled", "default": "1", "in_list_view": 1},
+  {"fieldname": "priority_order", "fieldtype": "Int", "label": "Priority Order", "default": 100, "description": "Lower runs first"},
+  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+  {"fieldname": "channel_filter", "fieldtype": "Select", "label": "Channel", "options": "\nEmail\nPortal\nPhone\nChat\nAPI\nAlert (RMM)\nAlert (SIEM)"},
+  {"fieldname": "when_ai_category_matches", "fieldtype": "Data", "label": "When AI Category Matches"},
+  {"fieldname": "when_customer_matches", "fieldtype": "Link", "label": "When Customer Matches", "options": "Customer"},
+  {"fieldname": "actions_section", "fieldtype": "Section Break", "label": "Actions"},
+  {"fieldname": "assign_to_queue", "fieldtype": "Link", "label": "Assign to Queue", "options": "PSA Ticket Queue"},
+  {"fieldname": "assign_to_user", "fieldtype": "Link", "label": "Assign to User", "options": "User"},
+  {"fieldname": "set_priority", "fieldtype": "Link", "label": "Set Priority", "options": "PSA Ticket Priority"},
+  {"fieldname": "column_break_2", "fieldtype": "Column Break"},
+  {"fieldname": "auto_reply_template", "fieldtype": "Link", "label": "Auto-Reply Template", "options": "Email Template"},
+  {"fieldname": "invoke_runbook", "fieldtype": "Link", "label": "Invoke Runbook", "options": "AI Runbook"}
+ ],
+ "links": [],
+ "modified": "2026-07-05 00:00:00",
+ "modified_by": "Administrator",
+ "module": "AI",
+ "name": "AI Triage Rule",
+ "owner": "Administrator",
+ "permissions": [
+  {"create": 1, "delete": 1, "read": 1, "role": "Galaxy Service Manager", "write": 1},
+  {"create": 1, "delete": 1, "read": 1, "role": "System Manager", "write": 1}
+ ],
+ "sort_field": "priority_order",
+ "sort_order": "ASC",
+ "states": [],
+ "track_changes": 1
+}

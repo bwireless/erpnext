@@ -1,0 +1,30 @@
+{
+ "actions": [],
+ "autoname": "field:queue_name",
+ "creation": "2026-07-05 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": ["queue_name", "description", "default_assignee", "auto_route_from"],
+ "fields": [
+  {"fieldname": "queue_name", "fieldtype": "Data", "label": "Queue Name", "reqd": 1, "unique": 1, "in_list_view": 1},
+  {"fieldname": "description", "fieldtype": "Small Text", "label": "Description"},
+  {"fieldname": "default_assignee", "fieldtype": "Link", "label": "Default Assignee", "options": "User"},
+  {"fieldname": "auto_route_from", "fieldtype": "Data", "label": "Auto-route From (channel or email address)"}
+ ],
+ "links": [],
+ "modified": "2026-07-05 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Service Desk",
+ "name": "PSA Ticket Queue",
+ "owner": "Administrator",
+ "permissions": [
+  {"create": 1, "delete": 1, "read": 1, "role": "Galaxy Service Manager", "write": 1},
+  {"create": 1, "delete": 1, "read": 1, "role": "System Manager", "write": 1},
+  {"read": 1, "role": "Galaxy Technician"}
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

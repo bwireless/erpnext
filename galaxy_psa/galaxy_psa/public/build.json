@@ -1,0 +1,4 @@
+{
+	"css/galaxy_brand.css": ["public/css/galaxy_brand.css"],
+	"js/galaxy_desk.js": ["public/js/galaxy_desk.js"]
+}

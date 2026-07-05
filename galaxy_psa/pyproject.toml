@@ -1,0 +1,20 @@
+[project]
+name = "galaxy_psa"
+authors = [
+    { name = "eKosmos Inc.", email = "engineering@ekosmos.com" },
+]
+description = "Galaxy PSA — AI-first Professional Services Automation on Frappe/ERPNext"
+requires-python = ">=3.10"
+readme = "README.md"
+dynamic = ["version"]
+dependencies = [
+    "anthropic>=0.40.0",
+]
+
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.bench.frappe-dependencies]
+frappe = ">=15.0.0"
+erpnext = ">=15.0.0"

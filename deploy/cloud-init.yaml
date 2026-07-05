@@ -1,0 +1,59 @@
+#cloud-config
+# First-boot setup for the galaxy.ekosmos.com Azure VM.
+# Attach as `custom-data` when creating the VM.
+
+package_update: true
+package_upgrade: false
+
+packages:
+  - ca-certificates
+  - curl
+  - gnupg
+  - git
+  - jq
+  - htop
+
+users:
+  - name: galaxy
+    groups: [sudo, docker]
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    shell: /bin/bash
+
+write_files:
+  - path: /etc/security/limits.d/galaxy.conf
+    permissions: "0644"
+    content: |
+      *    soft nofile 65535
+      *    hard nofile 65535
+  - path: /etc/sysctl.d/99-galaxy.conf
+    permissions: "0644"
+    content: |
+      vm.swappiness=10
+      vm.overcommit_memory=1
+      net.core.somaxconn=4096
+
+runcmd:
+  # Install Docker CE.
+  - install -m 0755 -d /etc/apt/keyrings
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  - chmod a+r /etc/apt/keyrings/docker.asc
+  - >
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc]
+    https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable"
+    > /etc/apt/sources.list.d/docker.list
+  - apt-get update
+  - apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  # Move the docker root to the data disk (assumes /mnt/data mounted).
+  - mkdir -p /mnt/data/docker
+  - |
+    if [ ! -f /etc/docker/daemon.json ]; then
+      echo '{"data-root": "/mnt/data/docker", "log-opts": {"max-size":"100m","max-file":"5"}}' > /etc/docker/daemon.json
+      systemctl restart docker
+    fi
+  - sysctl --system
+  # Clone the repo as the galaxy user and hand off.
+  - sudo -u galaxy bash -lc "cd /home/galaxy && git clone https://github.com/bwireless/erpnext.git galaxy"
+  - >
+    echo "\n=== VM provisioned. Next steps ==="
+    " cd /home/galaxy/galaxy/deploy && cp env.example .env && vim .env && docker compose up -d --build\n" \
+    > /etc/motd

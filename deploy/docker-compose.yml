@@ -1,0 +1,163 @@
+# Galaxy PSA — single-VM deployment (Docker Compose).
+# Layout follows frappe_docker's pattern: one backend image runs multiple
+# roles depending on the command it's launched with (backend/worker/scheduler).
+
+services:
+
+  # ----- Data plane -------------------------------------------------
+
+  mariadb:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      TZ: ${TZ:-UTC}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--su=mysql", "--connect"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis-cache:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis-cache-data:/data
+
+  redis-queue:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis-queue-data:/data
+
+  # ----- Frappe application plane -----------------------------------
+
+  # Base backend serves the site via gunicorn.
+  backend:
+    build:
+      context: ..
+      dockerfile: ./deploy/frappe/Dockerfile
+    image: galaxy-frappe:latest
+    restart: unless-stopped
+    depends_on:
+      mariadb:
+        condition: service_healthy
+      redis-cache:
+        condition: service_started
+      redis-queue:
+        condition: service_started
+    environment:
+      GALAXY_SITE_NAME: ${GALAXY_SITE_NAME}
+      GALAXY_ADMIN_PASSWORD: ${GALAXY_ADMIN_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      GALAXY_ANTHROPIC_API_KEY: ${GALAXY_ANTHROPIC_API_KEY}
+      GALAXY_ANTHROPIC_MODEL: ${GALAXY_ANTHROPIC_MODEL:-claude-sonnet-5}
+      TZ: ${TZ:-UTC}
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites
+      - logs:/home/frappe/frappe-bench/logs
+
+  # Long-running queue worker.
+  queue-long:
+    image: galaxy-frappe:latest
+    restart: unless-stopped
+    depends_on:
+      - backend
+    command: bench worker --queue long,default,short
+    environment:
+      GALAXY_SITE_NAME: ${GALAXY_SITE_NAME}
+      TZ: ${TZ:-UTC}
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites
+      - logs:/home/frappe/frappe-bench/logs
+
+  # Short queue worker.
+  queue-short:
+    image: galaxy-frappe:latest
+    restart: unless-stopped
+    depends_on:
+      - backend
+    command: bench worker --queue short,default
+    environment:
+      GALAXY_SITE_NAME: ${GALAXY_SITE_NAME}
+      TZ: ${TZ:-UTC}
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites
+      - logs:/home/frappe/frappe-bench/logs
+
+  scheduler:
+    image: galaxy-frappe:latest
+    restart: unless-stopped
+    depends_on:
+      - backend
+    command: bench schedule
+    environment:
+      GALAXY_SITE_NAME: ${GALAXY_SITE_NAME}
+      TZ: ${TZ:-UTC}
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites
+      - logs:/home/frappe/frappe-bench/logs
+
+  websocket:
+    image: galaxy-frappe:latest
+    restart: unless-stopped
+    depends_on:
+      - backend
+    command: node /home/frappe/frappe-bench/apps/frappe/socketio.js
+    environment:
+      GALAXY_SITE_NAME: ${GALAXY_SITE_NAME}
+      TZ: ${TZ:-UTC}
+    volumes:
+      - sites:/home/frappe/frappe-bench/sites
+
+  # ----- Ingress / TLS -----------------------------------------------
+
+  traefik:
+    image: traefik:v3.1
+    restart: unless-stopped
+    depends_on:
+      - backend
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.file.filename=/etc/traefik/traefik.yml
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.le.acme.email=${LETSENCRYPT_EMAIL}
+      - --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.le.acme.httpchallenge=true
+      - --certificatesresolvers.le.acme.httpchallenge.entrypoint=web
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.galaxy.rule=Host(`${GALAXY_SITE_NAME}`)
+      - traefik.http.routers.galaxy.entrypoints=websecure
+      - traefik.http.routers.galaxy.tls.certresolver=le
+      - traefik.http.services.galaxy.loadbalancer.server.port=8000
+      - traefik.http.routers.galaxy-ws.rule=Host(`${GALAXY_SITE_NAME}`) && PathPrefix(`/socket.io`)
+      - traefik.http.routers.galaxy-ws.service=galaxy-ws
+      - traefik.http.services.galaxy-ws.loadbalancer.server.port=9000
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - letsencrypt:/letsencrypt
+
+volumes:
+  mariadb-data:
+  redis-cache-data:
+  redis-queue-data:
+  sites:
+  logs:
+  letsencrypt:
