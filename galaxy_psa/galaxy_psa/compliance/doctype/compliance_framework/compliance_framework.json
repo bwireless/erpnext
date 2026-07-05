@@ -1,0 +1,49 @@
+{
+ "actions": [],
+ "autoname": "field:framework_code",
+ "creation": "2026-07-05 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "framework_code",
+  "framework_name",
+  "version",
+  "column_break_1",
+  "regulator",
+  "reference_url",
+  "description_section",
+  "description",
+  "applies_section",
+  "for_customer",
+  "in_scope"
+ ],
+ "fields": [
+  {"fieldname": "framework_code", "fieldtype": "Data", "label": "Code", "reqd": 1, "unique": 1, "in_list_view": 1, "description": "e.g. SOC2, CIS-v8, NIST-CSF, ISO27001, HIPAA, PCI-DSS"},
+  {"fieldname": "framework_name", "fieldtype": "Data", "label": "Name", "reqd": 1, "in_list_view": 1, "in_global_search": 1},
+  {"fieldname": "version", "fieldtype": "Data", "label": "Version"},
+  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+  {"fieldname": "regulator", "fieldtype": "Data", "label": "Regulator / Body"},
+  {"fieldname": "reference_url", "fieldtype": "Data", "label": "Reference URL"},
+  {"fieldname": "description_section", "fieldtype": "Section Break", "label": "Description"},
+  {"fieldname": "description", "fieldtype": "Text Editor", "label": "Description"},
+  {"fieldname": "applies_section", "fieldtype": "Section Break", "label": "Applies To"},
+  {"fieldname": "for_customer", "fieldtype": "Link", "label": "For Customer (if scoped)", "options": "Customer"},
+  {"fieldname": "in_scope", "fieldtype": "Check", "label": "In Scope", "default": "1"}
+ ],
+ "links": [],
+ "modified": "2026-07-05 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Compliance",
+ "name": "Compliance Framework",
+ "owner": "Administrator",
+ "permissions": [
+  {"create": 1, "delete": 1, "read": 1, "role": "Galaxy Security Analyst", "write": 1},
+  {"create": 1, "delete": 1, "read": 1, "role": "Galaxy Service Manager", "write": 1},
+  {"create": 1, "delete": 1, "read": 1, "role": "System Manager", "write": 1}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "framework_name",
+ "track_changes": 1
+}

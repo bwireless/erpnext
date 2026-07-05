@@ -1,0 +1,29 @@
+{
+ "actions": [],
+ "autoname": "Prompt",
+ "creation": "2026-07-05 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": ["description", "colour", "urgency_weight"],
+ "fields": [
+  {"fieldname": "description", "fieldtype": "Small Text", "label": "Description"},
+  {"fieldname": "colour", "fieldtype": "Color", "label": "Colour"},
+  {"fieldname": "urgency_weight", "fieldtype": "Int", "label": "Urgency Weight", "default": 3, "description": "1=lowest, 5=critical. Used by AI triage ordering."}
+ ],
+ "links": [],
+ "modified": "2026-07-05 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Service Desk",
+ "name": "PSA Ticket Priority",
+ "owner": "Administrator",
+ "permissions": [
+  {"create": 1, "delete": 1, "read": 1, "role": "Galaxy Service Manager", "write": 1},
+  {"create": 1, "delete": 1, "read": 1, "role": "System Manager", "write": 1},
+  {"read": 1, "role": "Galaxy Technician"}
+ ],
+ "quick_entry": 1,
+ "sort_field": "urgency_weight",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

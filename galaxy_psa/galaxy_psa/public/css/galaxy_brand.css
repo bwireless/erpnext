@@ -1,0 +1,76 @@
+/* Galaxy by eKosmos — brand tokens.
+ *
+ * These override Frappe/ERPNext defaults. Swap the values below to
+ * rebrand — nothing else in the codebase hard-codes brand colors.
+ *
+ * Placeholder palette (cosmic dark theme). Replace with final eKosmos
+ * brand palette when available.
+ */
+
+:root {
+	--galaxy-deep-space: #0B1026;
+	--galaxy-nebula: #1B2451;
+	--galaxy-electron: #7B5CFF;   /* primary */
+	--galaxy-supernova: #37E2D5;  /* accent */
+	--galaxy-solar: #FFC857;      /* warning */
+	--galaxy-nova: #FF5D8F;       /* danger  */
+	--galaxy-starlight: #E8ECFF;  /* on-dark text */
+
+	/* Map Galaxy tokens onto Frappe's semantic tokens. */
+	--primary: var(--galaxy-electron);
+	--primary-color: var(--galaxy-electron);
+	--btn-primary: var(--galaxy-electron);
+	--bg-color: #F7F8FC;
+	--fg-color: #0F1226;
+	--brand-hue: 250; /* electron purple family */
+}
+
+/* Dark mode picks up the deep-space palette wholesale. */
+[data-theme="dark"] {
+	--bg-color: var(--galaxy-deep-space);
+	--fg-color: var(--galaxy-starlight);
+	--card-bg: #12173A;
+	--subtle-fg: #A6B0E8;
+}
+
+/* Desk navbar */
+.navbar-brand {
+	color: var(--galaxy-electron) !important;
+	font-weight: 700;
+}
+.navbar-brand img { max-height: 28px; }
+
+/* Primary buttons pick up Galaxy electron */
+.btn-primary, .btn-primary:focus {
+	background: var(--galaxy-electron);
+	border-color: var(--galaxy-electron);
+}
+.btn-primary:hover {
+	background: #6749e6;
+	border-color: #6749e6;
+}
+
+/* Sidebar accent */
+.desk-sidebar .selected {
+	border-left: 3px solid var(--galaxy-supernova);
+}
+
+/* Login page: cosmic gradient background */
+body.login-page {
+	background:
+		radial-gradient(ellipse at 20% 10%, rgba(123,92,255,0.35), transparent 60%),
+		radial-gradient(ellipse at 80% 90%, rgba(55,226,213,0.20), transparent 55%),
+		linear-gradient(135deg, #05061A 0%, #0B1026 55%, #1B2451 100%);
+	color: var(--galaxy-starlight);
+}
+body.login-page .form-signin {
+	background: rgba(10,14,40,0.65);
+	backdrop-filter: blur(14px);
+	border: 1px solid rgba(123,92,255,0.25);
+	border-radius: 16px;
+}
+body.login-page .form-signin h4,
+body.login-page .form-signin label,
+body.login-page .form-signin p {
+	color: var(--galaxy-starlight) !important;
+}

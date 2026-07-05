@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "autoname": "field:template_name",
+ "creation": "2026-07-05 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "template_name",
+  "category",
+  "column_break_1",
+  "estimated_hours",
+  "default_project_lead",
+  "description_section",
+  "description",
+  "tasks_section",
+  "default_task_outline"
+ ],
+ "fields": [
+  {"fieldname": "template_name", "fieldtype": "Data", "label": "Template Name", "reqd": 1, "unique": 1, "in_list_view": 1},
+  {"fieldname": "category", "fieldtype": "Select", "label": "Category", "options": "\nOnboarding\nMigration\nDeployment\nAssessment\nIncident Response\nCompliance Audit", "in_list_view": 1},
+  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+  {"fieldname": "estimated_hours", "fieldtype": "Float", "label": "Estimated Hours"},
+  {"fieldname": "default_project_lead", "fieldtype": "Link", "label": "Default Project Lead", "options": "User"},
+  {"fieldname": "description_section", "fieldtype": "Section Break", "label": "Description"},
+  {"fieldname": "description", "fieldtype": "Text Editor", "label": "Description"},
+  {"fieldname": "tasks_section", "fieldtype": "Section Break", "label": "Default Tasks (JSON outline)"},
+  {"fieldname": "default_task_outline", "fieldtype": "Code", "label": "Task Outline (JSON)", "options": "JSON"}
+ ],
+ "links": [],
+ "modified": "2026-07-05 00:00:00",
+ "modified_by": "Administrator",
+ "module": "Projects Time",
+ "name": "PSA Project Template",
+ "owner": "Administrator",
+ "permissions": [
+  {"create": 1, "delete": 1, "read": 1, "role": "Galaxy Service Manager", "write": 1},
+  {"create": 1, "delete": 1, "read": 1, "role": "System Manager", "write": 1},
+  {"read": 1, "role": "Galaxy Technician"}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

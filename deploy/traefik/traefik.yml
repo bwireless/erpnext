@@ -1,0 +1,22 @@
+# Traefik dynamic config for the backend service (Galaxy Frappe).
+# Static bootstrap is in docker-compose.yml command args.
+
+http:
+  routers:
+    backend:
+      rule: "Host(`${GALAXY_SITE_NAME}`)"
+      entryPoints:
+        - websecure
+      service: backend
+      tls:
+        certResolver: le
+
+  services:
+    backend:
+      loadBalancer:
+        servers:
+          - url: "http://backend:8000"
+        healthCheck:
+          path: /
+          interval: "30s"
+          timeout: "5s"

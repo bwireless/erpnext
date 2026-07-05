@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include galaxy_psa/*.json
+include galaxy_psa/*.md
+include galaxy_psa/*.py
+include galaxy_psa/*.txt
+recursive-include galaxy_psa *.css
+recursive-include galaxy_psa *.csv
+recursive-include galaxy_psa *.html
+recursive-include galaxy_psa *.ico
+recursive-include galaxy_psa *.js
+recursive-include galaxy_psa *.json
+recursive-include galaxy_psa *.md
+recursive-include galaxy_psa *.png
+recursive-include galaxy_psa *.py
+recursive-include galaxy_psa *.svg
+recursive-include galaxy_psa *.txt
+recursive-exclude galaxy_psa *.pyc
